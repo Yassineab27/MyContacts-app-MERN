@@ -3,34 +3,35 @@ const Schema = mongoose.Schema;
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
-const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    lowercase: true,
-    trim: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("Email is invalid.");
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Email is invalid.");
+        }
       }
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 7
     }
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: 7
-  },
-  date: {
-    type: Date,
-    default: Date.now
+  {
+    timestamps: true
   }
-});
+);
 
 // Hashing password
 userSchema.pre("save", async function(next) {
@@ -39,6 +40,15 @@ userSchema.pre("save", async function(next) {
   }
   next();
 });
+
+// toJSON
+userSchema.methods.toJSON = function() {
+  const userObject = this.toObject();
+
+  delete userObject.password;
+
+  return userObject;
+};
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
