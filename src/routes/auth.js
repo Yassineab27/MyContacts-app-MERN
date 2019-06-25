@@ -7,7 +7,9 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  res.send("Log in user");
+  try {
+    res.send("Log in user");
+  } catch (err) {}
 });
 
 module.exports = router;
