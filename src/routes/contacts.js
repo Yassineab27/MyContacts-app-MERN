@@ -28,12 +28,42 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
-  res.send("Patch a contact");
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const contact = await Contact.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user._id
+    });
+
+    res.send(`contact '${contact.name}' was successfuly deleted`);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 
-router.delete("/:id", async (req, res) => {
-  res.send("delete a contact");
+router.patch("/:id", auth, async (req, res) => {
+  try {
+    const allowedUpdates = ["name", "phone", "email", "password", "type"];
+    const updates = Object.keys(req.body);
+    const validUpdate = updates.every(update =>
+      allowedUpdates.includes(update)
+    );
+    if (!validUpdate) {
+      throw new Error();
+    }
+    const contact = await Contact.findOne({
+      _id: req.params.id,
+      user: req.user._id
+    });
+    if (!contact) {
+      return res.status(404).send({ error: "contact not found." });
+    }
+    updates.forEach(update => (contact[update] = req.body[update]));
+    await contact.save();
+    res.send(contact);
+  } catch (err) {
+    res.status(400).send({ error: "update invalid!" });
+  }
 });
 
 module.exports = router;

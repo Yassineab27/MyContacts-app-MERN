@@ -6,10 +6,6 @@ const auth = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/me", async (req, res) => {
-  res.send("Get a user");
-});
-
 router.post("/", async (req, res) => {
   const userDup = await User.findOne({ email: req.body.email });
   if (userDup) {
@@ -28,6 +24,34 @@ router.post("/", async (req, res) => {
 
     await user.save();
     res.status(201).send({ user, token });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+router.patch("/:id", auth, async (req, res) => {
+  try {
+    const allowedUpdates = ["name", "email", "password"];
+    const updates = Object.keys(req.body);
+    const isValidUpdate = updates.every(update =>
+      allowedUpdates.includes(update)
+    );
+    if (!isValidUpdate) {
+      throw new Error();
+    }
+
+    updates.forEach(update => (req.user[update] = req.body[update]));
+    await req.user.save();
+    res.send(req.user);
+  } catch (err) {
+    res.status(400).send({ error: "update invalid." });
+  }
+});
+
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    await req.user.remove();
+    res.send(`user '${req.user.name}' was successfuly deleted`);
   } catch (err) {
     res.status(500).send(err.message);
   }

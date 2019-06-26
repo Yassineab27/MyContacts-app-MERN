@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const Contact = require("./contact");
 
 const userSchema = new Schema(
   {
@@ -32,6 +33,12 @@ const userSchema = new Schema(
     timestamps: true
   }
 );
+
+// Deleting all contacts
+userSchema.pre("remove", async function(next) {
+  await Contact.deleteMany({ user: this._id });
+  next();
+});
 
 // Hashing password
 userSchema.pre("save", async function(next) {

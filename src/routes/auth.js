@@ -9,6 +9,11 @@ const router = express.Router();
 
 router.get("/", auth, async (req, res) => {
   try {
+    if (!req.user) {
+      return res
+        .status(404)
+        .send({ error: "user not found. Please create one." });
+    }
     res.send(req.user);
   } catch (err) {
     res.status(500).send(err.message);
