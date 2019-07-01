@@ -6,7 +6,10 @@ const router = express.Router();
 
 router.get("/", auth, async (req, res) => {
   try {
-    const contacts = await Contact.find({ user: req.user._id }).sort({
+    const contacts = await Contact.find({
+      user: req.user._id
+      // name: req.query.name
+    }).sort({
       createdAt: -1
     });
     res.send(contacts);
@@ -16,6 +19,13 @@ router.get("/", auth, async (req, res) => {
 });
 
 router.post("/", auth, async (req, res) => {
+  const { name, phone } = req.body;
+  if (!name || !phone) {
+    return res
+      .status(400)
+      .send({ error: "Please provide your name and phone." });
+  }
+
   try {
     const contact = new Contact({
       ...req.body,
@@ -30,12 +40,16 @@ router.post("/", auth, async (req, res) => {
 
 router.delete("/:id", auth, async (req, res) => {
   try {
-    const contact = await Contact.findOneAndDelete({
+    const contact = await Contact.findOne({
       _id: req.params.id,
       user: req.user._id
     });
 
-    res.send(`contact '${contact.name}' was successfuly deleted`);
+    if (!contact) {
+      return res.status(400).send({ error: "Contact not found." });
+    }
+    await contact.remove();
+    res.send(`contact was successfuly deleted`);
   } catch (err) {
     res.status(500).send(err.message);
   }
@@ -43,7 +57,7 @@ router.delete("/:id", auth, async (req, res) => {
 
 router.patch("/:id", auth, async (req, res) => {
   try {
-    const allowedUpdates = ["name", "phone", "email", "password", "type"];
+    const allowedUpdates = ["name", "phone", "email", "type"];
     const updates = Object.keys(req.body);
     const validUpdate = updates.every(update =>
       allowedUpdates.includes(update)

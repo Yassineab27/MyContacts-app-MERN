@@ -1,10 +1,17 @@
 import React from "react";
+import Contacts from "./contacts/Contacts";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <React.Fragment>
+      <h1>Contacts</h1>
+      <div className="grid-2">
+        <div>{/* form */}</div>
+        <div>
+          <Contacts />
+        </div>
+      </div>
+    </React.Fragment>
   );
 };
 
