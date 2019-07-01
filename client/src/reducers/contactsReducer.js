@@ -27,11 +27,14 @@ const initialState = {
 
 const contactsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "GET_CONTACTS":
-      return { ...state, contacts: action.payload };
-    // case "ADD_CONTACT":
+    case "ADD_CONTACT":
+      return { ...state, contacts: [...state.contacts, action.payload] };
+    case "DELETE_CONTACT":
+      return {
+        ...state,
+        contacts: state.contacts.filter(c => c.id !== action.payload)
+      };
     // case "UPDATE_CONTACT":
-    // case "DELETE_CONTACT":
     // case "FILTER_CONTACTS":
     default:
       return state;

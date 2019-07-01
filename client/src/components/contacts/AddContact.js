@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import ContactForm from "./ContactForm";
+import uuid from "uuid";
+
+import { connect } from "react-redux";
+import { addContact } from "../../actions";
 
 class AddContact extends Component {
   handleSubmit = contact => {
-    console.log(contact);
+    this.props.addContact({ ...contact, id: uuid.v4() });
   };
 
   render() {
@@ -16,4 +20,7 @@ class AddContact extends Component {
   }
 }
 
-export default AddContact;
+export default connect(
+  null,
+  { addContact }
+)(AddContact);

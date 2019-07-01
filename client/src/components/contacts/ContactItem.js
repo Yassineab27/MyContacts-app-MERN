@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import { deleteContact } from "../../actions";
 
-const ContactItem = ({ contact }) => {
+const ContactItem = ({ contact, deleteContact }) => {
   return (
     <div className="card bg-light">
       <h3 className="text-main text-left">
@@ -29,7 +31,10 @@ const ContactItem = ({ contact }) => {
         <button className="btn btn-dark btn-sm">
           <i className="fas fa-user-edit" />
         </button>
-        <button className="btn btn-danger btn-sm">
+        <button
+          onClick={() => deleteContact(contact.id)}
+          className="btn btn-danger btn-sm"
+        >
           <i className="fas fa-trash-alt" />
         </button>
       </div>
@@ -37,4 +42,7 @@ const ContactItem = ({ contact }) => {
   );
 };
 
-export default ContactItem;
+export default connect(
+  null,
+  { deleteContact }
+)(ContactItem);

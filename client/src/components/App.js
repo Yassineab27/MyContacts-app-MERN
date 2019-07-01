@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+import history from "./history";
 
 import Contacts from "./contacts/Contacts";
 import AddContact from "./contacts/AddContact";
@@ -8,7 +9,7 @@ import "../index.css";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Navbar />
       <div className="container">
         <Switch>
@@ -16,7 +17,7 @@ const App = () => {
           <Route path="/contacts/new" component={AddContact} />
         </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 };
 
