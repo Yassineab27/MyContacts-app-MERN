@@ -5,6 +5,7 @@ const initialState = {
       name: "Yassine",
       email: "yass@gmail.com",
       phone: "111-111-111",
+      website: "yassine.com",
       type: "professional"
     },
     {
@@ -12,14 +13,16 @@ const initialState = {
       name: "Abdou",
       email: "ab@gmail.com",
       phone: "222-222-222",
-      type: "personal"
+      type: "personal",
+      website: "abdou.fr"
     },
     {
       id: "3",
       name: "Tson",
       email: "tho@gmail.com",
       phone: "333-333-333",
-      type: "professional"
+      type: "professional",
+      website: ""
     }
   ],
   searchContact: "",

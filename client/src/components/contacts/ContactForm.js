@@ -5,6 +5,7 @@ const ContactForm = ({ contact, onSubmit, history }) => {
   const [name, setName] = useState(contact ? contact.name : "");
   const [email, setEmail] = useState(contact ? contact.email : "");
   const [phone, setPhone] = useState(contact ? contact.phone : "");
+  const [website, setWebsite] = useState(contact ? contact.website : "");
   const [type, setType] = useState(contact ? contact.type : "personal");
 
   const handleSubmit = e => {
@@ -13,6 +14,7 @@ const ContactForm = ({ contact, onSubmit, history }) => {
       name,
       email,
       phone,
+      website,
       type
     };
     onSubmit(newContact);
@@ -28,6 +30,7 @@ const ContactForm = ({ contact, onSubmit, history }) => {
           value={name}
           onChange={e => setName(e.target.value)}
           required
+          autoComplete="no"
         />
         <input
           type="email"
@@ -35,6 +38,7 @@ const ContactForm = ({ contact, onSubmit, history }) => {
           name="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          autoComplete="no"
         />
         <input
           type="text"
@@ -42,6 +46,15 @@ const ContactForm = ({ contact, onSubmit, history }) => {
           name="phone"
           value={phone}
           onChange={e => setPhone(e.target.value)}
+          autoComplete="off"
+        />
+        <input
+          type="text"
+          placeholder="website"
+          name="website"
+          value={website}
+          onChange={e => setWebsite(e.target.value)}
+          autoComplete="off"
         />
         <h5>Contact Type</h5>
         <input

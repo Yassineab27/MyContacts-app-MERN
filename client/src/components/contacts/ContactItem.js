@@ -27,14 +27,28 @@ const ContactItem = ({ contact, deleteContact }) => {
             <i className="fas fa-phone" /> {contact.phone}
           </li>
         )}
+        {contact.website && (
+          <li>
+            <i className="fab fa-internet-explorer">
+              {" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={contact.website}
+              >
+                {contact.website}
+              </a>
+            </i>
+          </li>
+        )}
       </ul>
       <div>
-        <Link to={`/contacts/${contact.id}`} className="btn btn-dark btn-sm">
+        <Link to={`/contacts/${contact.id}`} className="btn btn-danger btn-sm">
           <i className="fas fa-user-edit" />
         </Link>
         <button
           onClick={() => deleteContact(contact.id)}
-          className="btn btn-danger btn-sm"
+          className="btn btn-medium btn-sm"
         >
           <i className="fas fa-trash-alt" />
         </button>

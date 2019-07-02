@@ -16,6 +16,7 @@ const SearchBar = ({ searchContact }) => {
       name="search"
       value={search}
       onChange={e => setSearch(e.target.value)}
+      autoComplete="off"
     />
   );
 };
