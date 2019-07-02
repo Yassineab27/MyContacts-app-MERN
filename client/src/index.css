@@ -110,6 +110,7 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
+  margin-top: 2rem;
 }
 
 .grid-3 {
@@ -211,6 +212,14 @@ a:hover {
   border-radius: 50%;
 }
 
+.underline {
+  height: 4px;
+  background: var(--main-color);
+  width: 4%;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+}
+
 /* Forms */
 form {
   width: 75%;
@@ -235,7 +244,13 @@ input[type="email"] {
   width: 100%;
   padding: 0.4rem;
   font-size: 1.2rem;
-  border: 1px solid #ccc;
+  border: none;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.267);
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.288);
 }
 
 input[type="submit"],

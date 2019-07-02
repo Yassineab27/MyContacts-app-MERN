@@ -13,3 +13,7 @@ export const editContact = (id, newContact) => {
   history.push("/contacts");
   return { type: "EDIT_CONTACT", payload: { id, newContact } };
 };
+
+export const searchContact = search => {
+  return { type: "SEARCH_CONTACT", payload: search };
+};

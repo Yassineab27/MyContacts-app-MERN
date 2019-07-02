@@ -22,6 +22,7 @@ const initialState = {
       type: "professional"
     }
   ],
+  searchContact: "",
   contactErrors: null
 };
 
@@ -45,8 +46,11 @@ const contactsReducer = (state = initialState, action) => {
         ...state,
         contacts: state.contacts.filter(c => c.id !== action.payload)
       };
-    // case "UPDATE_CONTACT":
-    // case "FILTER_CONTACTS":
+    case "SEARCH_CONTACT":
+      return {
+        ...state,
+        searchContact: action.payload
+      };
     default:
       return state;
   }
