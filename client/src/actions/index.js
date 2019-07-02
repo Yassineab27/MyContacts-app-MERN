@@ -8,3 +8,8 @@ export const addContact = contact => {
 export const deleteContact = id => {
   return { type: "DELETE_CONTACT", payload: id };
 };
+
+export const editContact = (id, newContact) => {
+  history.push("/contacts");
+  return { type: "EDIT_CONTACT", payload: { id, newContact } };
+};

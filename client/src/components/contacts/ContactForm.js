@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 
-const ContactForm = props => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [type, setType] = useState("personal");
+const ContactForm = ({ contact, onSubmit, history }) => {
+  const [name, setName] = useState(contact ? contact.name : "");
+  const [email, setEmail] = useState(contact ? contact.email : "");
+  const [phone, setPhone] = useState(contact ? contact.phone : "");
+  const [type, setType] = useState(contact ? contact.type : "personal");
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -14,59 +15,67 @@ const ContactForm = props => {
       phone,
       type
     };
-    props.submit(newContact);
+    onSubmit(newContact);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="name"
-        name="name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-        required
-      />
-      <input
-        type="email"
-        placeholder="email"
-        name="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="phone"
-        name="phone"
-        value={phone}
-        onChange={e => setPhone(e.target.value)}
-      />
-      <h5>Contact Type</h5>
-      <input
-        type="radio"
-        name="type"
-        value="personal"
-        checked={type === "personal"}
-        onChange={e => setType("personal")}
-      />{" "}
-      Personal{" "}
-      <input
-        type="radio"
-        name="type"
-        value="professional"
-        checked={type === "professional"}
-        onChange={e => setType("professional")}
-      />{" "}
-      Professional
-      <div>
+    <React.Fragment>
+      <form onSubmit={handleSubmit}>
         <input
-          type="submit"
-          value="Add Contact"
-          className="btn btn-main btn-block"
+          type="text"
+          placeholder="name"
+          name="name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
         />
+        <input
+          type="email"
+          placeholder="email"
+          name="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="phone"
+          name="phone"
+          value={phone}
+          onChange={e => setPhone(e.target.value)}
+        />
+        <h5>Contact Type</h5>
+        <input
+          type="radio"
+          name="type"
+          value="personal"
+          checked={type === "personal"}
+          onChange={e => setType("personal")}
+        />{" "}
+        Personal{" "}
+        <input
+          type="radio"
+          name="type"
+          value="professional"
+          checked={type === "professional"}
+          onChange={e => setType("professional")}
+        />{" "}
+        Professional
+        <div>
+          <button className="btn btn-main btn-block">
+            {contact ? "Update Contact" : "Add Contact"}
+          </button>
+        </div>
+      </form>
+      <div className="cancelButton">
+        <button
+          onClick={() => history.go(-1)}
+          className="btn btn-medium btn-block"
+        >
+          Cancel
+        </button>
       </div>
-    </form>
+    </React.Fragment>
   );
 };
 
-export default ContactForm;
+export default withRouter(ContactForm);

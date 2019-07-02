@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteContact } from "../../actions";
 
@@ -28,9 +29,9 @@ const ContactItem = ({ contact, deleteContact }) => {
         )}
       </ul>
       <div>
-        <button className="btn btn-dark btn-sm">
+        <Link to={`/contacts/${contact.id}`} className="btn btn-dark btn-sm">
           <i className="fas fa-user-edit" />
-        </button>
+        </Link>
         <button
           onClick={() => deleteContact(contact.id)}
           className="btn btn-danger btn-sm"
