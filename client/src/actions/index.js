@@ -43,7 +43,10 @@ export const registerUser = user => {
       const response = await axios.post(`${backend_URL}/users/register`, user);
       dispatch({ type: "REGISTER_USER", payload: response.data });
     } catch (err) {
-      dispatch({ type: "SET_ALERT", payload: err.message });
+      dispatch({
+        type: "SET_ALERT",
+        payload: { msg: err.response.data.error, type: "danger" }
+      });
     }
   };
 };
