@@ -26,7 +26,7 @@ const initialState = {
     }
   ],
   searchContact: "",
-  contactErrors: null
+  alert: null
 };
 
 const contactsReducer = (state = initialState, action) => {

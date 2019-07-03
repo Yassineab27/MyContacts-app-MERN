@@ -9,10 +9,19 @@ const Navbar = () => {
       </h1>
       <ul>
         <li>
-          <Link to="/contacts">Contacts</Link>
+          <Link to="/contacts">
+            <i className="fas fa-users fa-lg" />
+          </Link>
         </li>
         <li>
-          <Link to="/contacts/new">Add Contact</Link>
+          <Link to="/contacts/new">
+            <i className="fas fa-user-plus fa-lg" />
+          </Link>
+        </li>
+        <li>
+          <Link to="/users/login">
+            <i className="fas fa-sign-in-alt fa-lg" />
+          </Link>
         </li>
       </ul>
     </div>
