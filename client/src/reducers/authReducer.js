@@ -1,5 +1,4 @@
 const initialState = {
-  token: localStorage.getItem("token"),
   isAuthenticated: false,
   user: null,
   alert: null
@@ -11,7 +10,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         alert: {
-          msg: "You were registered successfully. Please login",
+          msg: "You were registered successfully. Please login!",
           type: "success"
         }
       };
@@ -19,8 +18,15 @@ const authReducer = (state = initialState, action) => {
       return { ...state, alert: null };
     case "SET_ALERT":
       return { ...state, alert: action.payload };
-    case "LOGIN_USER":
-      return { user: action.payload, authenticated: true };
+    case "SET_USER":
+      return {
+        user: action.payload,
+        authenticated: true,
+        alert: {
+          msg: "You were loged in successfully!",
+          type: "success"
+        }
+      };
     case "LOGOUT_USER":
       return { user: null, authenticated: false };
     default:

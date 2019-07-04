@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+import { connect } from "react-redux";
+import { loginUser } from "../../actions";
+
+const Login = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log("Registered");
+    const user = {
+      email,
+      password
+    };
+    props.loginUser(user);
   };
 
   return (
@@ -46,4 +53,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default connect(
+  null,
+  { loginUser }
+)(Login);

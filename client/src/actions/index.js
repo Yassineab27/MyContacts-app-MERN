@@ -1,5 +1,6 @@
-import history from "../components/history";
 import axios from "axios";
+import history from "../components/history";
+import setAuthorizationToken from "../utils/setAuthorizationToken";
 
 const backend_URL = "http://localhost:5000";
 
@@ -40,8 +41,8 @@ export const removeAlert = () => {
 export const registerUser = user => {
   return async dispatch => {
     try {
-      const response = await axios.post(`${backend_URL}/users/register`, user);
-      dispatch({ type: "REGISTER_USER", payload: response.data });
+      await axios.post(`${backend_URL}/users/register`, user);
+      dispatch({ type: "REGISTER_USER" });
       history.push("/users/login");
     } catch (err) {
       dispatch({
@@ -49,5 +50,30 @@ export const registerUser = user => {
         payload: { msg: err.response.data.error, type: "danger" }
       });
     }
+  };
+};
+
+export const loginUser = user => {
+  return async dispatch => {
+    try {
+      const response = await axios.post(`${backend_URL}/users/login`, user);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      setAuthorizationToken(response.data.token);
+      dispatch(setUser(response.data.user));
+      history.push("/contacts");
+    } catch (err) {
+      dispatch({
+        type: "SET_ALERT",
+        payload: { msg: err.response.data.error, type: "danger" }
+      });
+    }
+  };
+};
+
+export const setUser = user => {
+  return {
+    type: "SET_USER",
+    payload: user
   };
 };
