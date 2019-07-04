@@ -23,17 +23,17 @@ export const searchContact = search => {
 };
 
 // ALERTS
-export const setAlert = (msg, type, timeout = 5000) => {
-  return {
-    type: "SET_ALERT",
-    payload: { msg, type }
+export const setAlert = (msg, type) => {
+  return async dispatch => {
+    dispatch({
+      type: "SET_ALERT",
+      payload: { msg, type }
+    });
   };
 };
 
 export const removeAlert = () => {
-  return {
-    type: "REMOVE_ALERT"
-  };
+  return { type: "REMOVE_ALERT" };
 };
 
 // USER
@@ -42,6 +42,7 @@ export const registerUser = user => {
     try {
       const response = await axios.post(`${backend_URL}/users/register`, user);
       dispatch({ type: "REGISTER_USER", payload: response.data });
+      history.push("/users/login");
     } catch (err) {
       dispatch({
         type: "SET_ALERT",

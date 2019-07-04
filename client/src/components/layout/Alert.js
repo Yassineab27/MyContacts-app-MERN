@@ -4,18 +4,15 @@ import { removeAlert } from "../../actions";
 import "../../index.css";
 
 const Alert = props => {
-  return (
-    <div>
-      {props.alert && (
-        <div className={`alert alert-${props.alert.type}`}>
-          <i className="fas fa-info-circle"> {props.alert.msg}</i>
-          {/* {setTimeout(() => {
-            props.removeAlert();
-          }, 3000)} */}
-        </div>
-      )}
-    </div>
-  );
+  if (props.alert) {
+    setTimeout(() => props.removeAlert(), 3000);
+    return (
+      <div className={`alert alert-${props.alert.type}`}>
+        <i className="fas fa-info-circle"> {props.alert.msg}</i>
+      </div>
+    );
+  }
+  return null;
 };
 
 const mapStateToProps = state => {

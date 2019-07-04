@@ -174,10 +174,11 @@ a {
 /* ALERT */
 .alert {
   padding: 0.7rem;
-  margin: 1rem 0;
+  margin: 1rem auto;
   opacity: 0.9;
   background: var(--light-color);
   color: #333;
+  width: 50%;
 }
 
 /* MAIN */
