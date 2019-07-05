@@ -13,6 +13,10 @@ const Navbar = props => {
       <ul>
         {props.auth ? (
           <React.Fragment>
+            <h4 style={{ marginRight: "1.5rem", color: "#eee" }}>
+              {`Hello, ${props.user.name}`}{" "}
+              <i className="far fa-smile-beam fa-lg" />
+            </h4>
             <li>
               <Link to="/contacts">
                 <i className="fas fa-users fa-lg" />
@@ -45,7 +49,7 @@ const Navbar = props => {
 };
 
 const mapStateToProps = state => {
-  return { auth: state.auth.isAuthenticated };
+  return { auth: state.auth.isAuthenticated, user: state.auth.user };
 };
 
 export default connect(

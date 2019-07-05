@@ -56,8 +56,29 @@ export const deleteContact = id => {
 };
 
 export const editContact = (id, newContact) => {
-  history.push("/contacts");
-  return { type: "EDIT_CONTACT", payload: { id, newContact } };
+  return async dispatch => {
+    try {
+      const response = await axios.patch(
+        `${backend_URL}/contacts/${id}`,
+        newContact
+      );
+      dispatch({ type: "EDIT_CONTACT", payload: response.data });
+      history.push("/contacts");
+    } catch (err) {
+      if (err.response.status === 401) {
+        dispatch({
+          type: "SET_ALERT",
+          payload: { msg: err.response.data.error, type: "danger" }
+        });
+        history.push("/users/login");
+      } else {
+        dispatch({
+          type: "SET_ALERT",
+          payload: { msg: err.response.data.error, type: "danger" }
+        });
+      }
+    }
+  };
 };
 
 export const searchContact = search => {

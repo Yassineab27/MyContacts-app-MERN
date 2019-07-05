@@ -57,7 +57,7 @@ router.delete("/:id", auth, async (req, res) => {
 
 router.patch("/:id", auth, async (req, res) => {
   try {
-    const allowedUpdates = ["name", "phone", "email", "type"];
+    const allowedUpdates = ["name", "phone", "email", "type", "website"];
     const updates = Object.keys(req.body);
     const validUpdate = updates.every(update =>
       allowedUpdates.includes(update)

@@ -6,10 +6,7 @@ import { editContact } from "../../actions";
 
 class EditContact extends Component {
   handleUpdate = contact => {
-    this.props.editContact(this.props.match.params.id, {
-      ...contact,
-      id: this.props.contact.id
-    });
+    this.props.editContact(this.props.match.params.id, contact);
   };
   render() {
     console.log(this.props.contact);
@@ -28,7 +25,7 @@ class EditContact extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     contact: state.contacts.contacts.find(
-      contact => contact.id === ownProps.match.params.id
+      contact => contact._id === ownProps.match.params.id
     )
   };
 };

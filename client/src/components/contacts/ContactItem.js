@@ -43,11 +43,11 @@ const ContactItem = ({ contact, deleteContact }) => {
         )}
       </ul>
       <div>
-        <Link to={`/contacts/${contact.id}`} className="btn btn-danger btn-sm">
+        <Link to={`/contacts/${contact._id}`} className="btn btn-danger btn-sm">
           <i className="fas fa-user-edit" />
         </Link>
         <button
-          onClick={() => deleteContact(contact.id)}
+          onClick={() => deleteContact(contact._id)}
           className="btn btn-medium btn-sm"
         >
           <i className="fas fa-trash-alt" />
