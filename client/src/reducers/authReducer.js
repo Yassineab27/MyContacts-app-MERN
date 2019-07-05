@@ -18,17 +18,23 @@ const authReducer = (state = initialState, action) => {
       return { ...state, alert: null };
     case "SET_ALERT":
       return { ...state, alert: action.payload };
-    case "SET_USER":
+    case "LOGIN_USER":
       return {
         user: action.payload,
-        authenticated: true,
+        isAuthenticated: true,
         alert: {
-          msg: "You were loged in successfully!",
+          msg: "You were logged in successfully!",
           type: "success"
         }
       };
+    case "SET_USER":
+      return { ...state, user: action.payload, isAuthenticated: true };
     case "LOGOUT_USER":
-      return { user: null, authenticated: false };
+      return {
+        user: null,
+        isAuthenticated: false,
+        alert: { msg: "You were logged out successfully!", type: "success" }
+      };
     default:
       return state;
   }

@@ -20,6 +20,7 @@ const Login = props => {
   return (
     <div className="form-container">
       <h1>Login</h1>
+      <div className="underline" />
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>

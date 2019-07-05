@@ -23,7 +23,7 @@ router.post("/", auth, async (req, res) => {
   if (!name || !phone) {
     return res
       .status(400)
-      .send({ error: "Please provide your name and phone." });
+      .send({ error: "Please provide at least your name and phone." });
   }
 
   try {

@@ -29,6 +29,11 @@ ul {
   list-style: none;
 }
 
+ul li {
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
 img {
   width: 100%;
 }
@@ -38,9 +43,11 @@ a {
   text-decoration: none;
 }
 
-/* a:hover {
-  color: #666;
-} */
+h1,
+h2,
+h3 {
+  text-align: center;
+}
 
 /* Utilities */
 .container {
@@ -200,7 +207,7 @@ a {
   color: #fff;
 }
 
-/* DARL */
+/* DARK */
 .btn-dark,
 .bg-dark {
   background: var(--dark-color);
@@ -230,14 +237,14 @@ a {
 .underline {
   height: 4px;
   background: var(--main-color);
-  width: 4%;
+  width: 2.5rem;
   margin: 0 auto;
   margin-bottom: 2rem;
 }
 
 /* Forms */
 form {
-  width: 75%;
+  width: 85%;
   margin: 0 auto;
 }
 
@@ -246,13 +253,6 @@ form {
   margin: 2rem auto;
   overflow: hidden;
   padding: 0 2rem;
-}
-
-.form-container h1,
-h1,
-h2,
-h3 {
-  text-align: center;
 }
 
 .form-group {
@@ -269,7 +269,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="password2"] {
-  margin: 0.2rem 0;
+  margin: 0.7rem 0;
   display: block;
   width: 100%;
   padding: 0.4rem;
@@ -303,12 +303,12 @@ button {
 }
 
 .cancelButton {
-  width: 75%;
+  width: 85%;
   margin: 0 auto;
 }
 
 /* TABLE */
-table th,
+/* table th,
 table td {
   padding: 1rem;
   text-align: left;
@@ -316,7 +316,7 @@ table td {
 
 table th {
   background: var(--light-color);
-}
+} */
 
 /* Navbar */
 .navbar {

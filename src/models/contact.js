@@ -23,6 +23,10 @@ const contactSchema = new Schema(
     type: {
       type: String,
       default: "personal"
+    },
+    website: {
+      type: String,
+      trim: true
     }
   },
   {
