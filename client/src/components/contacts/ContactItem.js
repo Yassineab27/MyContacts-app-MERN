@@ -4,6 +4,15 @@ import { connect } from "react-redux";
 import { deleteContact } from "../../actions";
 
 const ContactItem = ({ contact, deleteContact }) => {
+  const handleDelete = id => {
+    const confirm = window.confirm(
+      "Are you sure you want to remove this contact ?"
+    );
+    if (confirm) {
+      deleteContact(id);
+    }
+  };
+
   return (
     <div className="card bg-light">
       <h3 className="text-main text-left">
@@ -47,7 +56,7 @@ const ContactItem = ({ contact, deleteContact }) => {
           <i className="fas fa-user-edit" />
         </Link>
         <button
-          onClick={() => deleteContact(contact._id)}
+          onClick={() => handleDelete(contact._id)}
           className="btn btn-medium btn-sm"
         >
           <i className="fas fa-trash-alt" />

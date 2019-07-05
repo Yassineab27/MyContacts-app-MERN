@@ -52,7 +52,25 @@ export const getContacts = () => {
 };
 
 export const deleteContact = id => {
-  return { type: "DELETE_CONTACT", payload: id };
+  return async dispatch => {
+    try {
+      await axios.delete(`${backend_URL}/contacts/${id}`);
+      dispatch({ type: "DELETE_CONTACT", payload: id });
+    } catch (err) {
+      if (err.response.status === 401) {
+        dispatch({
+          type: "SET_ALERT",
+          payload: { msg: err.response.data.error, type: "danger" }
+        });
+        history.push("/users/login");
+      } else {
+        dispatch({
+          type: "SET_ALERT",
+          payload: { msg: err.response.data.error, type: "danger" }
+        });
+      }
+    }
+  };
 };
 
 export const editContact = (id, newContact) => {

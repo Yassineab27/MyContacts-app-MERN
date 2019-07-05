@@ -50,7 +50,7 @@ const contactsReducer = (state = initialState, action) => {
     case "DELETE_CONTACT":
       return {
         ...state,
-        contacts: state.contacts.filter(c => c.id !== action.payload)
+        contacts: state.contacts.filter(c => c._id !== action.payload)
       };
     case "SEARCH_CONTACT":
       return {
