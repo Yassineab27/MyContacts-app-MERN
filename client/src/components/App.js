@@ -6,6 +6,7 @@ import Home from "./auth/Home";
 import Contacts from "./contacts/Contacts";
 import AddContact from "./contacts/AddContact";
 import EditContact from "./contacts/EditContact";
+import User from "./user/User";
 import Navbar from "./layout/Navbar";
 import Alert from "./layout/Alert";
 
@@ -24,6 +25,7 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/users/register" component={Register} />
           <Route exact path="/users/login" component={Login} />
+          <Route exact path="/users/me" component={User} />
           <Route exact path="/contacts" component={Contacts} />
           <Route exact path="/contacts/new" component={AddContact} />
           <Route path="/contacts/:id" component={EditContact} />

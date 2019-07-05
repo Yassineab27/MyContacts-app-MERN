@@ -48,13 +48,13 @@ userSchema.pre("save", async function(next) {
 });
 
 // toJSON
-userSchema.methods.toJSON = function() {
-  const userObject = this.toObject();
+// userSchema.methods.toJSON = function() {
+//   const userObject = this.toObject();
 
-  delete userObject.password;
+//   delete userObject.password;
 
-  return userObject;
-};
+//   return userObject;
+// };
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
