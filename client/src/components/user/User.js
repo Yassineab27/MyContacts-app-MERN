@@ -1,24 +1,35 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateUser } from "../../actions";
+import { updateUser, deleteUser } from "../../actions";
 
 const User = props => {
-  // useEffect(() => {
-  //   props.getUser();
-  // }, []);
+  const handleDelete = () => {
+    console.log("deleted");
+    const confirm = window.confirm(
+      "If you delete your account you are gonna loose all your contacts. Are you sure you want to do that ?"
+    );
+    if (confirm) {
+      props.deleteUser();
+    }
+  };
   return (
     <React.Fragment>
       <h2>User</h2>
       <div className="underline" />
       <form style={{ width: "70%" }}>
         <label htmlFor="name">Name:</label>
-        <input type="text" name="name" placeholder={props.user.name} disabled />
+        <input
+          type="text"
+          name="name"
+          placeholder={props.user ? props.user.name : ""}
+          disabled
+        />
         <label htmlFor="email">Email:</label>
         <input
           type="email"
           name="email"
-          placeholder={props.user.email}
+          placeholder={props.user ? props.user.email : ""}
           disabled
         />
         <label htmlFor="password">Password:</label>
@@ -32,7 +43,10 @@ const User = props => {
         </div>
       </form>
       <div style={{ width: "70%" }} className="cancelButton">
-        <button className="btn btn-medium btn-block">
+        <button
+          onClick={() => handleDelete()}
+          className="btn btn-medium btn-block"
+        >
           Delete User <i className="fas fa-trash-alt" />
         </button>
       </div>
@@ -46,5 +60,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { updateUser }
+  { updateUser, deleteUser }
 )(User);

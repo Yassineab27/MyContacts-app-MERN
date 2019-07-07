@@ -26,7 +26,6 @@ const EditUser = props => {
       password
     };
     props.updateUser(newUser);
-    console.log(newUser);
   };
 
   return (

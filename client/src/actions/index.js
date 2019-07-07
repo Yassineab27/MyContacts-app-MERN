@@ -194,24 +194,32 @@ export const updateUser = user => {
   };
 };
 
-// export const getUser = () => {
-//   return async dispatch => {
-//     try {
-//       const response = axios.get(`${backend_URL}/users/me`);
-//       dispatch({ type: "GET_USER", payload: response });
-//     } catch (err) {
-//       if (err.response.status === 401) {
-//         dispatch({
-//           type: "SET_ALERT",
-//           payload: { msg: err.response.data.error, type: "danger" }
-//         });
-//         history.push("/users/login");
-//       } else {
-//         dispatch({
-//           type: "SET_ALERT",
-//           payload: { msg: err.response.data.error, type: "danger" }
-//         });
-//       }
-//     }
-//   };
-// };
+export const deleteUser = () => {
+  return async dispatch => {
+    try {
+      const response = await axios.delete(`${backend_URL}/users/me`);
+      localStorage.clear();
+      dispatch({ type: "DELETE_USER", payload: response.data });
+      history.push("/users/register");
+    } catch (err) {
+      if (err.response.status === 401) {
+        dispatch({
+          type: "SET_ALERT",
+          payload: {
+            msg: err.response.data.error,
+            type: "danger"
+          }
+        });
+        history.push("/users/login");
+      } else {
+        dispatch({
+          type: "SET_ALERT",
+          payload: {
+            msg: err.response.data.error,
+            type: "danger"
+          }
+        });
+      }
+    }
+  };
+};

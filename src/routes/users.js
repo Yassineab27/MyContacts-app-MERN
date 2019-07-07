@@ -83,10 +83,11 @@ router.patch("/me/edit", auth, async (req, res) => {
 });
 
 // DELETE USER
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/me", auth, async (req, res) => {
   try {
     await req.user.remove();
     res.send(`user '${req.user.name}' was successfuly deleted`);
+    // res.send(user);
   } catch (err) {
     res.status(500).send(err.message);
   }
