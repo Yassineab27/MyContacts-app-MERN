@@ -5,7 +5,6 @@ import { updateUser, deleteUser } from "../../actions";
 
 const User = props => {
   const handleDelete = () => {
-    console.log("deleted");
     const confirm = window.confirm(
       "If you delete your account you are gonna loose all your contacts. Are you sure you want to do that ?"
     );
@@ -47,7 +46,7 @@ const User = props => {
           onClick={() => handleDelete()}
           className="btn btn-medium btn-block"
         >
-          Delete User <i className="fas fa-trash-alt" />
+          Delete Account <i className="fas fa-trash-alt" />
         </button>
       </div>
     </React.Fragment>

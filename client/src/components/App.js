@@ -8,6 +8,7 @@ import AddContact from "./contacts/AddContact";
 import EditContact from "./contacts/EditContact";
 import User from "./user/User";
 import EditUser from "./user/EditUser";
+import notFound from "./notFound";
 import Navbar from "./layout/Navbar";
 import Alert from "./layout/Alert";
 
@@ -30,7 +31,8 @@ const App = () => {
           <Route exact path="/users/me/edit" component={EditUser} />
           <Route exact path="/contacts" component={Contacts} />
           <Route exact path="/contacts/new" component={AddContact} />
-          <Route path="/contacts/:id" component={EditContact} />
+          <Route exact path="/contacts/:id" component={EditContact} />
+          <Route path="*" component={notFound} />
         </Switch>
       </div>
     </Router>
