@@ -1,54 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { updateUser } from "../../actions";
 
 const User = props => {
-  const [name, setName] = useState(props.user.name);
-  const [email, setEmail] = useState(props.user.email);
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    const newUser = {
-      name,
-      email,
-      password
-    };
-    console.log(newUser);
-  };
-
+  // useEffect(() => {
+  //   props.getUser();
+  // }, []);
   return (
     <React.Fragment>
-      <form style={{ width: "75%" }} onSubmit={handleSubmit}>
+      <h2>User</h2>
+      <div className="underline" />
+      <form style={{ width: "70%" }}>
         <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          required
-          autoComplete="no"
-        />
+        <input type="text" name="name" placeholder={props.user.name} disabled />
         <label htmlFor="email">Email:</label>
         <input
           type="email"
           name="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          autoComplete="no"
+          placeholder={props.user.email}
+          disabled
         />
         <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          autoComplete="off"
-        />
+        <input type="password" name="password" placeholder="******" disabled />
         <div>
-          <button className="btn btn-main btn-block">Update User</button>
+          <Link to="/users/me/edit">
+            <button className="btn btn-main btn-block">
+              Edit User <i className="fas fa-edit" />
+            </button>
+          </Link>
         </div>
       </form>
-      <div style={{ width: "75%" }} className="cancelButton">
+      <div style={{ width: "70%" }} className="cancelButton">
         <button className="btn btn-medium btn-block">
           Delete User <i className="fas fa-trash-alt" />
         </button>
@@ -61,4 +44,7 @@ const mapStateToProps = state => {
   return { user: state.auth.user };
 };
 
-export default connect(mapStateToProps)(User);
+export default connect(
+  mapStateToProps,
+  { updateUser }
+)(User);

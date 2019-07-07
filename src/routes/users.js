@@ -56,11 +56,6 @@ router.post("/login", async (req, res) => {
 // GET USER
 router.get("/me", auth, async (req, res) => {
   try {
-    if (!req.user) {
-      return res
-        .status(404)
-        .send({ error: "user not found. Please create one." });
-    }
     res.send(req.user);
   } catch (err) {
     res.status(500).send(err.message);
@@ -68,7 +63,7 @@ router.get("/me", auth, async (req, res) => {
 });
 
 // PATCH USER
-router.patch("/:id", auth, async (req, res) => {
+router.patch("/me/edit", auth, async (req, res) => {
   try {
     const allowedUpdates = ["name", "email", "password"];
     const updates = Object.keys(req.body);

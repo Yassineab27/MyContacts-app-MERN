@@ -6,6 +6,14 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    // case "GET_USER":
+    //   return { ...state, user: action.payload };
+    case "UPDATE_USER":
+      return {
+        ...state,
+        user: { ...action.payload },
+        alert: { msg: "User updated successfully!", type: "success" }
+      };
     case "REGISTER_USER":
       return {
         ...state,

@@ -165,3 +165,53 @@ export const logoutUser = () => {
     type: "LOGOUT_USER"
   };
 };
+
+export const updateUser = user => {
+  return async dispatch => {
+    try {
+      const response = await axios.patch(`${backend_URL}/users/me/edit`, user);
+      const newUser = {
+        ...JSON.parse(localStorage.getItem("user")),
+        ...response.data
+      };
+      localStorage.setItem("user", JSON.stringify(newUser));
+      dispatch({ type: "UPDATE_USER", payload: response.data });
+      history.push("/users/me");
+    } catch (err) {
+      if (err.response.status === 401) {
+        dispatch({
+          type: "SET_ALERT",
+          payload: { msg: err.response.data.error, type: "danger" }
+        });
+        history.push("/users/login");
+      } else {
+        dispatch({
+          type: "SET_ALERT",
+          payload: { msg: err.response.data.error, type: "danger" }
+        });
+      }
+    }
+  };
+};
+
+// export const getUser = () => {
+//   return async dispatch => {
+//     try {
+//       const response = axios.get(`${backend_URL}/users/me`);
+//       dispatch({ type: "GET_USER", payload: response });
+//     } catch (err) {
+//       if (err.response.status === 401) {
+//         dispatch({
+//           type: "SET_ALERT",
+//           payload: { msg: err.response.data.error, type: "danger" }
+//         });
+//         history.push("/users/login");
+//       } else {
+//         dispatch({
+//           type: "SET_ALERT",
+//           payload: { msg: err.response.data.error, type: "danger" }
+//         });
+//       }
+//     }
+//   };
+// };

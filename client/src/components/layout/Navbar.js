@@ -28,7 +28,7 @@ const Navbar = props => {
               </Link>
             </li>
             <li>
-              <Link to="/users/me">
+              <Link to={`/users/me`}>
                 <i className="fas fa-cogs fa-lg" />
               </Link>
             </li>
