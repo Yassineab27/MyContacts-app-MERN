@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const connectDB = require("../config/db");
-cors = require("cors");
+const cors = require("cors");
 const history = require("connect-history-api-fallback");
 
 const userRoutes = require("./routes/users");
