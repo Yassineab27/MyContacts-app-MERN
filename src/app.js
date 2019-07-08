@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const connectDB = require("../config/db");
 cors = require("cors");
 
@@ -16,5 +17,14 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/users", userRoutes);
 app.use("/contacts", contactRoutes);
+
+// Serve Statics in prod
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../client/build"));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "../client/build/index.html"))
+  );
+}
 
 module.exports = app;
