@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const connectDB = require("../config/db");
 cors = require("cors");
+const history = require("connect-history-api-fallback");
 
 const userRoutes = require("./routes/users");
 const contactRoutes = require("./routes/contacts");
@@ -11,6 +12,7 @@ const app = express();
 connectDB();
 
 app.use(cors());
+app.use(history());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
