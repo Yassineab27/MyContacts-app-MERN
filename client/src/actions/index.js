@@ -2,13 +2,11 @@ import axios from "axios";
 import history from "../components/history";
 import setAuthorizationToken from "../utils/setAuthorizationToken";
 
-const backend_URL = "http://localhost:5000";
-
 // CONTACTS
 export const addContact = contact => {
   return async dispatch => {
     try {
-      const response = await axios.post(`${backend_URL}/contacts`, contact);
+      const response = await axios.post("/contacts", contact);
       dispatch({ type: "ADD_CONTACT", payload: response.data });
       history.push("/contacts");
     } catch (err) {
@@ -31,7 +29,7 @@ export const addContact = contact => {
 export const getContacts = () => {
   return async dispatch => {
     try {
-      const response = await axios.get(`${backend_URL}/contacts`);
+      const response = await axios.get("/contacts");
 
       dispatch({ type: "GET_CONTACTS", payload: response.data });
     } catch (err) {
@@ -54,7 +52,7 @@ export const getContacts = () => {
 export const deleteContact = id => {
   return async dispatch => {
     try {
-      await axios.delete(`${backend_URL}/contacts/${id}`);
+      await axios.delete(`/contacts/${id}`);
       dispatch({ type: "DELETE_CONTACT", payload: id });
     } catch (err) {
       if (err.response.status === 401) {
@@ -76,10 +74,7 @@ export const deleteContact = id => {
 export const editContact = (id, newContact) => {
   return async dispatch => {
     try {
-      const response = await axios.patch(
-        `${backend_URL}/contacts/${id}`,
-        newContact
-      );
+      const response = await axios.patch(`/contacts/${id}`, newContact);
       dispatch({ type: "EDIT_CONTACT", payload: response.data });
       history.push("/contacts");
     } catch (err) {
@@ -121,7 +116,7 @@ export const removeAlert = () => {
 export const registerUser = user => {
   return async dispatch => {
     try {
-      await axios.post(`${backend_URL}/users/register`, user);
+      await axios.post("/users/register", user);
       dispatch({ type: "REGISTER_USER" });
       history.push("/users/login");
     } catch (err) {
@@ -136,7 +131,7 @@ export const registerUser = user => {
 export const loginUser = user => {
   return async dispatch => {
     try {
-      const response = await axios.post(`${backend_URL}/users/login`, user);
+      const response = await axios.post("/users/login", user);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
       setAuthorizationToken(response.data.token);
@@ -169,7 +164,7 @@ export const logoutUser = () => {
 export const updateUser = user => {
   return async dispatch => {
     try {
-      const response = await axios.patch(`${backend_URL}/users/me/edit`, user);
+      const response = await axios.patch("/users/me/edit", user);
       const newUser = {
         ...JSON.parse(localStorage.getItem("user")),
         ...response.data
@@ -197,7 +192,7 @@ export const updateUser = user => {
 export const deleteUser = () => {
   return async dispatch => {
     try {
-      const response = await axios.delete(`${backend_URL}/users/me`);
+      const response = await axios.delete("/users/me");
       localStorage.clear();
       dispatch({ type: "DELETE_USER", payload: response.data });
       history.push("/users/register");
