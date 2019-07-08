@@ -17,7 +17,7 @@ const Home = props => {
           </Link>
         </div>
       ) : (
-        <div className="text-center my-3">
+        <div className="text-center mt-2">
           <Link to="/users/login" className="btn btn-medium">
             Login
           </Link>
